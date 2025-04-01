@@ -8,23 +8,24 @@
 </head>
 <body>
     <div class="container">
-        <h1>🌤 Weather App</h1>
+        <h1>Weather App</h1>
+
         <form method="POST">
             <input type="text" name="city" placeholder="Enter city name" required>
             <button type="submit">Get Weather</button>
         </form>
 
-        {% if error %}
-            <p class="error">{{ error }}</p>
-        {% elif weather %}
-            <div class="weather-card">
+        {% if weather %}
+            <div class="weather-box">
                 <h2>{{ weather.city }}</h2>
-                <img src="{{ weather.icon }}" alt="Weather Icon">
-                <p class="temperature">{{ weather.temperature }}°C</p>
-                <p class="description">{{ weather.description }}</p>
-                <p>🌬 Wind Speed: {{ weather.wind_speed }} m/s</p>
-                <p>💧 Humidity: {{ weather.humidity }}%</p>
+                <img src="http://openweathermap.org/img/wn/{{ weather.icon }}@2x.png" alt="Weather icon">
+                <p><strong>Temperature:</strong> {{ weather.temperature }}°C</p>
+                <p><strong>Humidity:</strong> {{ weather.humidity }}%</p>
+                <p><strong>Wind Speed:</strong> {{ weather.wind_speed }} m/s</p>
+                <p><strong>Description:</strong> {{ weather.description }}</p>
             </div>
+        {% elif error %}
+            <p class="error">{{ error }}</p>
         {% endif %}
     </div>
 </body>
