@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            background-image: url('{{ url_for('static', filename='background.jpg') }}');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
