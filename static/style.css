@@ -1,63 +1,48 @@
-/* General Page Styling */
 body {
     font-family: Arial, sans-serif;
-    background: url('https://source.unsplash.com/1600x900/?sky,weather') no-repeat center center/cover;
     text-align: center;
+    background: url('../static/background.jpg') no-repeat center center/cover;
     color: white;
-    padding: 20px;
+    margin: 0;
+    padding: 0;
 }
 
-/* Container Styling */
 .container {
-    max-width: 500px;
-    margin: auto;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.5);
     padding: 20px;
     border-radius: 10px;
+    display: inline-block;
+    margin-top: 50px;
 }
 
-/* Form Styling */
+h1 {
+    font-size: 2rem;
+}
+
 input {
-    width: 80%;
     padding: 10px;
-    margin: 10px;
+    width: 200px;
+    margin-right: 10px;
     border-radius: 5px;
     border: none;
 }
 
 button {
-    padding: 10px 20px;
-    border: none;
+    padding: 10px 15px;
     background: #ff9800;
     color: white;
-    font-size: 16px;
+    border: none;
     border-radius: 5px;
     cursor: pointer;
 }
 
-button:hover {
-    background: #e68900;
-}
-
-/* Weather Card */
-.weather-card {
+.weather-box {
+    margin-top: 20px;
     background: rgba(255, 255, 255, 0.2);
     padding: 15px;
     border-radius: 10px;
-    margin-top: 20px;
-}
-
-.temperature {
-    font-size: 2em;
-    font-weight: bold;
-}
-
-.description {
-    font-size: 1.2em;
-    text-transform: capitalize;
 }
 
 .error {
     color: red;
-    font-weight: bold;
 }
