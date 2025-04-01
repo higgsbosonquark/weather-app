@@ -3,36 +3,31 @@ import requests
 
 app = Flask(__name__)
 
-API_KEY = "d9a30d9b082d54530163a322216b4734"
+API_KEY = "your_openweathermap_api_key"  # Replace with your actual API key
 
 @app.route("/", methods=["GET", "POST"])
 def index():
     weather_data = None
     error = None
-    city = "Lucknow"  # Default city
 
     if request.method == "POST":
-        city = request.form["city"]
+        city = request.form.get("city")
+        if city:
+            url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
+            response = requests.get(url)
+            data = response.json()
 
-    try:
-        url = f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={API_KEY}&units=metric"
-        response = requests.get(url)
-        data = response.json()
-
-        if data["cod"] == 200:
-            weather_data = {
-                "city": city.capitalize(),
-                "temperature": data["main"]["temp"],
-                "humidity": data["main"]["humidity"],
-                "wind_speed": data["wind"]["speed"],
-                "description": data["weather"][0]["description"].capitalize(),
-                "icon": data["weather"][0]["icon"],
-            }
-        else:
-            error = "City not found! Please enter a valid city name."
-
-    except Exception as e:
-        error = "Error fetching weather data."
+            if data.get("cod") == 200:
+                weather_data = {
+                    "city": city.title(),
+                    "temperature": data["main"]["temp"],
+                    "description": data["weather"][0]["description"].capitalize(),
+                    "humidity": data["main"]["humidity"],
+                    "wind_speed": data["wind"]["speed"],
+                    "icon": f"http://openweathermap.org/img/wn/{data['weather'][0]['icon']}@2x.png",
+                }
+            else:
+                error = "City not found. Please try again."
 
     return render_template("index.html", weather=weather_data, error=error)
 
