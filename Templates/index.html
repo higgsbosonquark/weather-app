@@ -6,35 +6,102 @@
     <title>Weather App</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
     <style>
+        /* Background Styling */
         body {
             background-image: url('{{ url_for('static', filename='background.jpg') }}');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
+            font-family: 'Arial', sans-serif;
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Container Styling */
+        .container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
+            max-width: 450px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 26px;
+            margin-bottom: 15px;
+        }
+
+        /* Form Styling */
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        input {
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            outline: none;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Weather Info Box */
+        .weather-info {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .weather-info p {
+            font-size: 18px;
+            margin: 5px 0;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>🌤️ Weather App</h1>
-        
+        <h1>Weather App</h1>
         <form method="POST">
-            <input type="text" name="city" placeholder="Enter city name" required>
+            <input type="text" name="city" placeholder="Enter city" required>
             <button type="submit">Get Weather</button>
         </form>
 
-        {% if error %}
-            <p class="error">{{ error }}</p>
-        {% endif %}
-
         {% if weather %}
-            <div class="weather-box">
-                <h2>{{ weather.city }}</h2>
-                <img src="{{ weather.icon }}" alt="Weather Icon">
-                <p>🌡️ Temperature: {{ weather.temperature }}°C</p>
-                <p>🌦️ Description: {{ weather.description }}</p>
-                <p>💧 Humidity: {{ weather.humidity }}%</p>
-                <p>💨 Wind Speed: {{ weather.wind_speed }} m/s</p>
-            </div>
+        <div class="weather-info">
+            <p><strong>City:</strong> {{ weather.city }}</p>
+            <p><strong>Temperature:</strong> {{ weather.temperature }}°C</p>
+            <p><strong>Humidity:</strong> {{ weather.humidity }}%</p>
+            <p><strong>Condition:</strong> {{ weather.condition }}</p>
+        </div>
+        {% elif error %}
+        <p>{{ error }}</p>
         {% endif %}
     </div>
 </body>
